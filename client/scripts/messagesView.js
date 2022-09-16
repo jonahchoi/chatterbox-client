@@ -8,14 +8,20 @@ var MessagesView = {
   initialize: function() {
     // TODO: Perform any work which needs to be done
     // when this view loads.
+
   },
 
   render: function() {
     // TODO: Render _all_ the messages.
+    Messages._data.forEach((message) => {
+      this.renderMessage(message);
+    })
   },
 
   renderMessage: function(message) {
     // TODO: Render a single message.
+    let htmlMsg = MessageView.render(message);
+    this.$chats.append(htmlMsg);
   },
 
   handleClick: function(event) {
