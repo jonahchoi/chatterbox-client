@@ -10,10 +10,15 @@ var Rooms = {
   // TODO: Define methods which allow you to add rooms, update the list,
   // mark a room as selected, etc.
   add: function(roomName) {
-    this._data.push(roomName);
+    let temp = _.template('<%-roomname%>');
+    this._data.push(temp(roomName));
   },
 
-  update: function(newRoomList) {
-    this._data = newRoomList;
+  update: function(data) {
+    data.forEach((msg) => {
+      if(!this._data.includes(msg.roomname) && msg.roomname !== null) {
+        this.add(msg);
+      }
+    })
   }
 };

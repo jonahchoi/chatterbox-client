@@ -9,18 +9,25 @@ var RoomsView = {
   initialize: function() {
     // TODO: Perform any work which needs to be done
     // when this view loads.
+    this.$select.on('change', this.handleChange);
+    this.$button.on('click', this.handleSubmit);
   },
 
   render: function() {
     // TODO: Render out the list of rooms.
+    Rooms._data.forEach((room) => {
+      this.$select.append();
+    })
   },
 
   renderRoom: function(roomname) {
     // TODO: Render out a single room.
+    MessagesView.render(roomname);
   },
 
   handleChange: function(event) {
     // TODO: Handle a user selecting a different room.
+
   },
 
   handleClick: function(event) {

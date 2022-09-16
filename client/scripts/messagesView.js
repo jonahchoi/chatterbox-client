@@ -8,14 +8,25 @@ var MessagesView = {
   initialize: function() {
     // TODO: Perform any work which needs to be done
     // when this view loads.
-
+    this.$chats.html('');
   },
 
-  render: function() {
-    // TODO: Render _all_ the messages.
-    Messages._data.forEach((message) => {
-      this.renderMessage(message);
-    })
+  render: function(filterRoomname) {
+    //clear chat so we don't copy the same messages
+    this.$chats.html('');
+
+    if (filterRoomname !== undefined) {
+      Messages._data.filter((message) => {
+        return message.roomname === filterRoomname ? true : false;
+      }).forEach((message) => {
+        this.renderMessage(message);
+      })
+    } else {
+      //Render _all_ the messages.
+      Messages._data.forEach((message) => {
+        this.renderMessage(message);
+      })
+    }
   },
 
   renderMessage: function(message) {
