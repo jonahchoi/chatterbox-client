@@ -5,12 +5,21 @@ body {
     font-family: arial, sans-serif;
 }
 
+#main {
+    padding-top: 50px;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+#chats {
+    padding: 50px 60px;
+}
+
 #main, #chats {
     width: 500px;
     margin: auto;
     text-align: left;
     background: white;
-    padding: 50px 60px;
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
 }
@@ -86,5 +95,30 @@ form input[type=text] {
 .friend {
     color: #fff;
     background-color: #0090da;
+}
+
+#tabs {
+    display: flex;
+    flex-direction: row;
+}
+
+.tab {
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    margin: 3px;
+    margin-bottom: 0;
+}
+
+.tabname {
+    margin-right: 5px;
+}
+
+.closeButton {
+    color: red;
+    border: none;
+
 }
 
