@@ -17,23 +17,31 @@ var MessagesView = {
     // TODO: Render _all_ the messages.
     let messages;
     if (roomName) {
-      messages = Messages._data.filter((message) => {
-        if(roomName === 'lobby' && message.roomname === null) {
+      messages = Messages._data.filter((message, i) => {
+        if(message.roomname === roomName || (roomName === 'lobby' && message.roomname === null)) {
+          // Messages._data[i].seen = true;
           return true;
         }
-        return message.roomname === roomName;
+        return false;
       });
+      Notifications.update(roomName);
     } else {
       messages = Messages._data
+      Notifications.clear();
     }
     for (let i = 0 ; i < messages.length; i++) {
+      // messages[i].seen = true;
       this.renderMessage(messages[i]);
     }
+    // console.log('fake messages', messages);
   },
 
   renderMessage: function(message) {
     let newMessage = MessageView.render(message);
     let $newMessage = $(newMessage);
+    if(Friends._data.includes(message.username)) {
+      $newMessage.css({color: 'blue'});
+    }
     $newMessage.on('click', (event) => {
       this.handleClick(event, message.username);
     });

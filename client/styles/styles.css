@@ -119,6 +119,15 @@ form input[type=text] {
 .closeButton {
     color: red;
     border: none;
+}
 
+.notification {
+    color:white;
+    background-color: red;
+    border-radius: 50%;
+    height: 1rem;
+    width: 1rem;
+    text-align: center;
+    margin: 2px;
 }
 
