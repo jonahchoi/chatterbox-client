@@ -9,9 +9,11 @@ var Friends = {
 
   // TODO: Define methods which allow you to add, toggle,
   // and check the friendship status of other users.
-  addFriend: function(name) {
-    if(!this._data.includes(name)) {
-      this._data.push(name);
+  toggleStatus: function(friendName) {
+    if (!(this._data.includes(friendName)) && friendName !== null) {
+      this._data.push(friendName);
     }
+
   }
+
 };

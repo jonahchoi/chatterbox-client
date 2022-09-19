@@ -9,15 +9,16 @@ var Messages = {
 
   // TODO: Define methods which allow you to retrieve from,
   // add to, and generally interact with the messages.
-  add: function(messageObj) {
-    this._data.push(messageObj);
-  },
+  update: function(data) {
+    let lastMsgId = this._data[0]?.message_id || 0;
 
-  retrieve: function() {
-    this._data.forEach((message) => {
-      console.log('message:', message);
-    })
+    for(let i = 99; i >= 0; i--) {
+      if(data[i].message_id > lastMsgId) {
+        Notifications.add(data[i].roomname);
+        // data[i].seen = false;
+        this._data.unshift(data[i]);
+      }
+    }
+    // console.log(Messages._data);
   }
-
-
 };

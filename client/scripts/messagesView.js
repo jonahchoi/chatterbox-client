@@ -11,33 +11,47 @@ var MessagesView = {
     this.$chats.html('');
   },
 
-  render: function(filterRoomname) {
-    //clear chat so we don't copy the same messages
+  render: function(roomName) {
+    //Clear chats dom to make sure no repeats
     this.$chats.html('');
-
-    if (filterRoomname !== undefined) {
-      Messages._data.filter((message) => {
-        return message.roomname === filterRoomname ? true : false;
-      }).forEach((message) => {
-        this.renderMessage(message);
-      })
+    // TODO: Render _all_ the messages.
+    let messages;
+    if (roomName) {
+      messages = Messages._data.filter((message, i) => {
+        if(message.roomname === roomName || (roomName === 'lobby' && message.roomname === null)) {
+          // Messages._data[i].seen = true;
+          return true;
+        }
+        return false;
+      });
+      Notifications.update(roomName);
     } else {
-      //Render _all_ the messages.
-      Messages._data.forEach((message) => {
-        this.renderMessage(message);
-      })
+      messages = Messages._data
+      Notifications.clear();
     }
+    for (let i = 0 ; i < messages.length; i++) {
+      // messages[i].seen = true;
+      this.renderMessage(messages[i]);
+    }
+    // console.log('fake messages', messages);
   },
 
   renderMessage: function(message) {
-    // TODO: Render a single message.
-    let htmlMsg = MessageView.render(message);
-    this.$chats.append(htmlMsg);
+    let newMessage = MessageView.render(message);
+    let $newMessage = $(newMessage);
+    if(Friends._data.includes(message.username)) {
+      $newMessage.css({color: 'blue'});
+    }
+    $newMessage.on('click', (event) => {
+      this.handleClick(event, message.username);
+    });
+    this.$chats.append($newMessage);
   },
 
-  handleClick: function(event) {
+  handleClick: function(event, friendName) {
     // TODO: handle a user clicking on a message
     // (this should add the sender to the user's friend list).
+    Friends.toggleStatus(friendName);
   }
 
 };
